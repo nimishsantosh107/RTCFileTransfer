@@ -29,11 +29,13 @@ window.PEER.on('connection', function (conn) {
 });
 
 seedButton.addEventListener('click', function (event) {
-    console.log(seedInput.files);
+    seedInput.files[0].arrayBuffer().then((buf) => {
+        window.BYTEARR = new Uint8Array(buf);
+    });
 });
 
 /* BUFFER */
-// saveBuffer([ Uint8Buffer ], 'FILENAME');
+// saveBuffer([ Uint8Array ], 'FILENAME');
 const saveBuffer = (function () {
     var a = document.createElement("a");
     document.body.appendChild(a);
