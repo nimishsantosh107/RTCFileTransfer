@@ -1,14 +1,17 @@
-var peer = new Peer();
+window.PEER = new Peer();
+window.PEER.on('open', function (id) {console.log(window.PEER.id);}); //window.PEER.id == id
+
+console.log(window.PEER.id);
 
 //single object used by sender and reciever
 window.CONN = null;
 
 //ONLY FOR SENDER
 function connectPeer(peerid) {
-    window.CONN = peer.connect(peerid);
+    window.CONN = window.PEER.connect(peerid);
     window.CONN.on('open', function () {
         console.log(`CONNECTED TO ${peerid}`);
-        window.CONN.send(`CONNECTED TO ${peer.id}`);
+        window.CONN.send(`CONNECTED TO ${window.PEER.id}`);
     });
 
     window.CONN.on('data', function (data) {
@@ -17,7 +20,7 @@ function connectPeer(peerid) {
 }
 
 //ONLY FOR RECEIVER
-peer.on('connection', function (conn) {
+window.PEER.on('connection', function (conn) {
     window.CONN = conn;
     window.CONN.on('data', function (data) {
         console.log(data);
