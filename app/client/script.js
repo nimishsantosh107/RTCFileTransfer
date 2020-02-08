@@ -31,6 +31,7 @@ window.PEER.on('connection', function (conn) {
 seedButton.addEventListener('click', function (event) {
     seedInput.files[0].arrayBuffer().then((buf) => {
         window.BYTEARR = new Uint8Array(buf);
+        console.log(window.BYTEARR);
     });
 });
 
