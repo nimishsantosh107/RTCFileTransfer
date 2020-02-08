@@ -1,7 +1,8 @@
 window.PEER = new Peer();
-window.PEER.on('open', function (id) {console.log(window.PEER.id);}); //window.PEER.id == id
+window.PEER.on('open', function (id) {
+    console.log(window.PEER.id);
+}); //window.PEER.id == id
 
-console.log(window.PEER.id);
 
 //single object used by sender and reciever
 window.CONN = null;
