@@ -1,24 +1,25 @@
 var peer = new Peer();
 
-//INITIATOR USES SENDCONN, RESPONDER USES RECVCONN
-var sendconn = null;
-var recvconn = null;
+//single object used by sender and reciever
+window.CONN = null;
 
+//ONLY FOR SENDER
 function connectPeer(peerid) {
-    sendconn = peer.connect(peerid);
-    sendconn.on('open', function () {
+    window.CONN = peer.connect(peerid);
+    window.CONN.on('open', function () {
         console.log(`CONNECTED TO ${peerid}`);
-        sendconn.send(`CONNECTED TO ${peer.id}`);
+        window.CONN.send(`CONNECTED TO ${peer.id}`);
     });
 
-    sendconn.on('data', function (data) {
+    window.CONN.on('data', function (data) {
         console.log(data);
     });
 }
 
+//ONLY FOR RECEIVER
 peer.on('connection', function (conn) {
-    recvconn = conn;
-    recvconn.on('data', function (data) {
+    window.CONN = conn;
+    window.CONN.on('data', function (data) {
         console.log(data);
     });
 });
